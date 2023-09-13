@@ -27,7 +27,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             WebViewCssTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -62,11 +61,13 @@ class MainActivity : ComponentActivity() {
 
     fun appendStyleSheet(css: String) {
         val escapedCss = escapeForStringLiteral(css)
-        var script = "var style = document.createElement('style');"
-        script += "style.type = 'text/css';"
-        script += "var content = document.createTextNode('${escapedCss}');"
-        script += "style.appendChild(content);"
-        script += "document.body.appendChild(style);"
+        val script = """
+            var style = document.createElement('style');
+            style.type = 'text/css';
+            var content = document.createTextNode('$escapedCss');
+            style.appendChild(content);
+            document.body.appendChild(style);
+        """.trimIndent()
         webView?.evaluateJavascript(script, null)
     }
 

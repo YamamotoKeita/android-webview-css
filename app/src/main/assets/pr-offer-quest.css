@@ -1,7 +1,7 @@
 body {
     padding: 20px;
     font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Roboto, sans-serif;
-    font-weight: 300;
+    font-weight: regular;
     color: #4B5F71;
     font-size: 14px;
     line-height: 1.8;
@@ -16,7 +16,7 @@ body {
 }
 .p-pr-offer-body__highlights > h2 {
     color: #00beff;
-    font-weight: 600;
+    font-weight: bold;
 }
 .p-pr-offer-body__highlights > ol > li {
     align-items: center;
@@ -44,14 +44,14 @@ body {
     background-color: #f7f7f7;
     border-radius: 10px 10px 0 0;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: bold;
     text-align: center;
     padding: 1em 0;
 }
 .p-pr-offer-body__outline th {
     display: block;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: bold;
     padding: 20px 0 0 20px;
     text-align: left;
     vertical-align: top;
@@ -73,5 +73,5 @@ body {
 }
 
 .u-font-bold {
-    font-weight: 600;
+    font-weight: bold;
 }
