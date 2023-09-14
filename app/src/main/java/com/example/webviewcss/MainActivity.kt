@@ -42,13 +42,13 @@ class MainActivity : ComponentActivity() {
                     Box(contentAlignment = Alignment.BottomCenter) {
                         MyWebView()
                         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                            Button(onClick = { setBody(TestData[0]) }) {
+                            Button(onClick = { reserveBody(TestData[0]) }) {
                                 Text("本文1")
                             }
-                            Button(onClick = { setBody(TestData[1]) }) {
+                            Button(onClick = { reserveBody(TestData[1]) }) {
                                 Text("本文2")
                             }
-                            Button(onClick = { setBody(TestData[2]) }) {
+                            Button(onClick = { reserveBody(TestData[2]) }) {
                                 Text("本文3")
                             }
                         }
@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-        
+
         reserveBody(TestData[0])
     }
 
