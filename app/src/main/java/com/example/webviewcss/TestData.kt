@@ -1,9 +1,8 @@
 package com.example.webviewcss
 
-class TestData {
-    companion object {
-        val data = listOf(
-"""
+object TestData {
+    private val data = listOf(
+        """
 <div class="p-pr-offer-body__highlights">
     <h2>おすすめポイント</h2>
     <ol>
@@ -29,7 +28,7 @@ class TestData {
 </table>
 """,
 
-            """
+        """
 <span class="u-font-bold">フューチャーグロウス株式会社へようこそ！</span><br>
 <br>
 未来を拓くリーディングカンパニー、フューチャーグロウス株式会社への就職活動に興味をお持ちいただき、ありがとうございます。<br>
@@ -74,9 +73,9 @@ class TestData {
 この文は架空の企業「フューチャーグロウス株式会社」を想定して作成されたものです。
 """,
 
-            """
+        """
 １行だけのテキスト
 """
-        )
-    }
+    )
+    operator fun get(i: Int): String = data[i]
 }

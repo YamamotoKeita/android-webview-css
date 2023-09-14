@@ -6,11 +6,22 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.webviewcss.ui.theme.WebViewCssTheme
 
@@ -28,16 +39,32 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MyWebView()
+                    Box(contentAlignment = Alignment.BottomCenter) {
+                        MyWebView()
+                        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                            Button(onClick = { setBody(TestData[0]) }) {
+                                Text("本文1")
+                            }
+                            Button(onClick = { setBody(TestData[1]) }) {
+                                Text("本文2")
+                            }
+                            Button(onClick = { setBody(TestData[2]) }) {
+                                Text("本文3")
+                            }
+                        }
+                    }
                 }
             }
         }
+        
+        reserveBody(TestData[0])
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     @Composable
     fun MyWebView() {
         AndroidView(
+            modifier = Modifier.fillMaxHeight(),
             factory = ::WebView,
             update = { webView ->
                 this.webView = webView
@@ -88,8 +115,6 @@ class MainActivity : ComponentActivity() {
             isHTMLReady = true
             afterReady?.invoke()
             afterReady = null
-
-            reserveBody(TestData.data[0])
         }
     }
 }
