@@ -1,9 +1,7 @@
 package com.example.webviewcss
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
@@ -11,17 +9,16 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
-import com.example.webviewcss.ui.theme.TestData
 import com.example.webviewcss.ui.theme.WebViewCssTheme
 
 class MainActivity : ComponentActivity() {
 
     var webView: WebView? = null
+    private var isHTMLReady = false
+    private var afterReady: (() -> Unit)? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,39 +43,32 @@ class MainActivity : ComponentActivity() {
                 this.webView = webView
                 webView.webViewClient = webViewClient
                 webView.settings.javaScriptEnabled = true
-                webView.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-                WebView.setWebContentsDebuggingEnabled(true)
-
-                load()
+                loadBaseHTML()
             }
         )
     }
 
-    fun load() {
-        val htmlPath = "file:///android_asset/pr-offer-quest.html"
-        webView?.loadUrl(htmlPath)
+    fun loadBaseHTML() {
+        webView?.loadUrl("file:///android_asset/pr-offer-quest.html")
     }
 
-    fun appendStyleSheet(css: String) {
-        val escapedCss = escapeForStringLiteral(css)
-        val script = """
-            var style = document.createElement('style');
-            style.type = 'text/css';
-            var content = document.createTextNode('$escapedCss');
-            style.appendChild(content);
-            document.body.appendChild(style);
-        """.trimIndent()
-        webView?.evaluateJavascript(script, null)
+    fun reserveBody(html: String) {
+        if (isHTMLReady) {
+            setBody(html)
+        } else {
+            afterReady = {
+                setBody(html)
+            }
+        }
     }
-
-    fun appendBody() {
-        val escaped = escapeForStringLiteral(TestData.prOfferBody)
+    fun setBody(html: String) {
+        val escaped = escapeForStringLiteral(html)
         val script = "document.body.innerHTML = '$escaped';"
         webView?.evaluateJavascript(script, null)
     }
 
     fun escapeForStringLiteral(src: String): String {
-        val stringLiteralConversion = mapOf(
+        val conversion = mapOf(
             "\r" to "",
             "\n" to "\\n",
             "\"" to "\\\"",
@@ -86,27 +76,20 @@ class MainActivity : ComponentActivity() {
             "\t" to "\\t"
         )
         var result = src
-        stringLiteralConversion.forEach { (key, value) ->
+        conversion.forEach { (key, value) ->
             result = result.replace(key, value)
         }
         return result
     }
 
-    private fun readResourceString(context: Context, fileName: String): String? {
-        return context.assets.open(fileName).bufferedReader().use {
-            it.readText()
-        }
-    }
-
     private val webViewClient = object : WebViewClient() {
         override fun onPageFinished(view: WebView, url: String) {
             super.onPageFinished(view, url)
+            isHTMLReady = true
+            afterReady?.invoke()
+            afterReady = null
 
-            val css = readResourceString(context = this@MainActivity,"pr-offer-quest.css")
-            if (css != null) {
-                appendStyleSheet(css)
-            }
-            appendBody()
+            reserveBody(TestData.data[0])
         }
     }
 }

@@ -1,11 +1,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>PRオファークエスト</title>
-    <link rel="stylesheet" href="https://unpkg.com/destyle.css@4.0.0/destyle.css">
-    <link rel="stylesheet" href="pr-offer-quest.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <style>
+        /** Rest Style */
+        *, ::before, ::after {
+          box-sizing: border-box;
+        }
+        html {
+          -webkit-text-size-adjust: 100%;
+          -webkit-tap-highlight-color: transparent;
+        }
+        body {
+          margin: 0;
+        }
+        h1, h2, h3, h4, h5, h6 {
+          font-size: inherit;
+          font-weight: inherit;
+          margin: 0;
+        }
+        ul, ol {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+
+        /** For PR Offer */
+        body {
+            padding: 20px;
+            font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Roboto, sans-serif;
+            color: #4B5F71;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .p-pr-offer-body__highlights {
+            background-color: rgba(229, 248, 255, 0.5);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            font-size: 12px;
+        }
+        .p-pr-offer-body__highlights > h2 {
+            color: #00beff;
+            font-weight: bold;
+        }
+        .p-pr-offer-body__highlights > ol > li {
+            align-items: center;
+            color: #5e686a;
+            display: flex;
+            margin-top: 10px;
+        }
+        .p-pr-offer-body__highlights > ol > li::before {
+            background: url(https://static.syukatsu-kaigi.jp/packs/images/student/common/icon_checked-c3e657e39f42b203aa417d1c5f408de1.png) no-repeat;
+            background-size: contain;
+            content: "";
+            display: inline-block;
+            margin-right: 10px;
+            min-height: 15px;
+            min-width: 15px;
+        }
+        .p-pr-offer-body__outline {
+            background-color: #fafafa;
+            border-radius: 0 0 10px 10px;
+            margin-bottom: 30px;
+            margin-top: 30px;
+            width: 100%;
+        }
+        .p-pr-offer-body__outline caption {
+            background-color: #f7f7f7;
+            border-radius: 10px 10px 0 0;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            padding: 1em 0;
+        }
+        .p-pr-offer-body__outline th {
+            display: block;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 20px 0 0 20px;
+            text-align: left;
+            vertical-align: top;
+            white-space: nowrap;
+        }
+        .p-pr-offer-body__outline td {
+            display: block;
+            font-size: 14px;
+            padding: 20px 20px 0 20px;
+        }
+        .p-pr-offer-body__outline tr:last-child td {
+            padding-bottom: 20px;
+        }
+        .p-pr-offer-body__font-red {
+            color: #fc7a7b;
+        }
+        .p-pr-offer-body__under-line {
+            background: linear-gradient(transparent 50%, #fff7bb 50%);
+        }
+
+        .u-font-bold {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 </body>
